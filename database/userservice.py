@@ -31,3 +31,58 @@ def register_user(name, email, phone_number, password, user_city=None, birthday=
         return f'Регистрация пользователя {new_user.id} проведена успешна'
     else:
         checker
+
+
+# Логин
+def login(email, password):
+    db = next(get_db())
+    user_email = db.query(User).fileter_by(email=email).first()
+    # user_password = db.query(User).filter_by(password=password).first()
+    print(user_email)
+    if user_email:
+        if user_email.password == password:
+            return user_email.id
+        else:
+            return "Неправильные данные"
+    else:
+        return 'Нет такого email'
+
+
+# Получение данных определенного пользователя
+def get_profile_db(user_id):
+    db = next(get_db())
+    user_info = db.query(User).filter_by(user_id=user_id).first()
+    if user_info:
+        return user_info
+    return False
+
+
+# Изменения данных пользователя
+def change_user_data_db(user_id, change_info, new_info):
+    db = next(get_db())
+    user = db.query(User).filter_by(user_id=user_id).first()
+    if user:
+        try:
+            if change_info == 'name':
+                user.name = new_info
+                db.commit()
+                return 'Успешно изменено'
+            elif change_info == 'email':
+                user.email = new_info
+                db.commit()
+                return 'Успешно изменено'
+        except:
+            return 'Нет такого значения для изменения'
+    return False
+
+
+# Удаление пользовтеля Logout
+def delete_user_db(user_id):
+    db = next(get_db())
+    user = db.query(User).filter_by(user_id=user_id).first()
+    if user:
+        db.delete(user)
+        db.commit()
+        return 'Успешно удалено'
+    return False
+
