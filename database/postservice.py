@@ -6,7 +6,7 @@ from datetime import datetime
 # Получить все посты
 def get_all_posts():
     db = next(get_db())
-    posts = db.query(UserPost).all
+    posts = db.query(UserPost).all()
     return posts
 
 
@@ -85,7 +85,7 @@ def change_comment_text_db(id, new_text):
 
 
 # Удаления определенного комментраия
-def delet_exact_comment_db(id):
+def delete_exact_comment_db(id):
     db = next(get_db())
     comment_delete = db.query(Comment).filter_by(id=id).first()
     if comment_delete:
@@ -96,16 +96,43 @@ def delet_exact_comment_db(id):
 
 
 # Создание хэштега
-def add_hashtag(hastag_name):
+def add_hashtag_db(hashtag_name):
     db = next(get_db())
-    new_hashtag = Hashtag(hastag_name=hastag_name, reg_data=datetime.now())
+    new_hashtag = Hashtag(hastag_name=hashtag_name, reg_data=datetime.now())
     db.add(new_hashtag)
     db.add.commit()
     return True
 
 
 # Рекомендации по хэштегу
-def get_recommend_hashtag(size, hashtag_name):
+def get_recommend_hashtag_db(size, hashtag_name):
     db = next(get_db())
     posts = db.query(UserPost).filter_by(hashtag_name=hashtag_name).limit(size).all()
+    return posts
 
+
+# Получить определенный хэштег
+def get_exact_hashtag_db(id):
+    db = next(get_db())
+    exact_hashtag = db.query(Hashtag).filter_by(id=id).first()
+    if exact_hashtag:
+        return exact_hashtag
+    return False
+
+
+# Получить все хэштешги
+def get_all_hashtag_db():
+    db = next(get_db())
+    hashtags = db.query(Hashtag).all()
+    return hashtags
+
+
+# Удалить определенного хэштега
+def delete_hashtag_db(id):
+    db = next(get_db())
+    hashtag_to_delete = db.query(Hashtag).filter_by(id=id).first()
+    if hashtag_to_delete:
+        db.delete(hashtag_to_delete)
+        db.commit()
+        return "Хэштег был успешно удален"
+    return False

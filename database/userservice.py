@@ -67,10 +67,28 @@ def change_user_data_db(user_id, change_info, new_info):
                 user.name = new_info
                 db.commit()
                 return 'Успешно изменено'
-            elif change_info == 'email':
-                user.email = new_info
+            elif change_info == 'city':
+                user.city = new_info
                 db.commit()
                 return 'Успешно изменено'
+            elif change_info == 'password':
+                user.password = new_info
+                db.commit()
+                return 'Успешно изменено'
+            elif change_info == 'birthday':
+                user.birthday = new_info
+                db.commit()
+                return 'Успешно изменено'
+            elif change_info == 'phone_number':
+                user.phone_number = new_info
+                db.commit()
+                return 'Успешно изменено'
+            elif change_info == 'status':
+                user.status = new_info
+                db.commit()
+                return 'Успешно изменено'
+            else:
+                return 'Таких данных не существует'
         except:
             return 'Нет такого значения для изменения'
     return False
