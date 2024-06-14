@@ -112,9 +112,9 @@ def get_recommend_hashtag_db(size, hashtag_name):
 
 
 # Получить определенный хэштег
-def get_exact_hashtag_db(id):
+def get_exact_hashtag_db(hashtag_name):
     db = next(get_db())
-    exact_hashtag = db.query(Hashtag).filter_by(id=id).first()
+    exact_hashtag = db.query(Hashtag).filter_by(hashtag_name=hashtag_name).first()
     if exact_hashtag:
         return exact_hashtag
     return False
@@ -128,9 +128,9 @@ def get_all_hashtag_db():
 
 
 # Удалить определенного хэштега
-def delete_hashtag_db(id):
+def delete_hashtag_db(hashtag_name):
     db = next(get_db())
-    hashtag_to_delete = db.query(Hashtag).filter_by(id=id).first()
+    hashtag_to_delete = db.query(Hashtag).filter_by(hashtag_name=hashtag_name).first()
     if hashtag_to_delete:
         db.delete(hashtag_to_delete)
         db.commit()
