@@ -43,9 +43,9 @@ class UserPost(Base):
     id = Column(Integer, autoincrement=True, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     main_text = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+    reg_date = Column(DateTime)
     hashtag = Column(String, ForeignKey('hashtags.hashtag_name'), nullable=True)
-    descriptions = Column(String, nullable=False)
-    red_date = Column(DateTime)
 
     user_fk = relationship(User, foreign_keys=[user_id], lazy='subquery')
     hashtag_fk = relationship(Hashtag, foreign_keys=[hashtag], lazy='subquery')

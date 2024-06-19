@@ -28,7 +28,7 @@ async def register_user(validator: UserValidator):
     user_email = user_data.get('email')
     print(user_email)
     checker = db.query(User).filter_by(email=user_email).first()
-    print(f'ошибкаЖ {checker}')
+    print(f'ошибка {checker}')
     if not checker:
         try:
             reg_user = register_user_db(**user_data)
@@ -52,7 +52,7 @@ async def get_user(user_id: int):
     return exact_user
 
 
-@user_router.put('/api/change_account')
+@user_router.put('/api/change-account')
 async def change_user_profile(id: int, change_info: str, new_info: str):
     data = change_user_data_db(id=id, change_info=change_info, new_info=new_info)
     return data

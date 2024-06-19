@@ -11,7 +11,7 @@ def get_all_posts():
 
 
 # Получить определенный пост
-def get_exact_pos_db(id: int):
+def get_exact_post_db(id: int):
     db = next(get_db())
     exact_post = db.query(UserPost).filter_by(id=id).first()
     if exact_post:
@@ -42,10 +42,10 @@ def delete_post_db(id):
 
 
 # Добавления поста
-def add_post_db(user_id, id, main_text, description, hashtag=None):
+def add_post_db(user_id, main_text, description, hashtag=None):
     db = next(get_db())
     if user_id:
-        new_post = UserPost(user_id=user_id, id=id, main_text=main_text, description=description,
+        new_post = UserPost(user_id=user_id, main_text=main_text, description=description,
                             reg_date=datetime.now(), hashtag=hashtag)
         db.add(new_post)
         db.commit()
@@ -127,7 +127,7 @@ def get_all_hashtag_db():
     return hashtags
 
 
-# Удалить определенного хэштега
+# Удалить определенный хэштега
 def delete_hashtag_db(hashtag_name):
     db = next(get_db())
     hashtag_to_delete = db.query(Hashtag).filter_by(hashtag_name=hashtag_name).first()
